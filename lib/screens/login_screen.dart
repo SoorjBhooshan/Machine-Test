@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:machine_test_app/screens/home_screen.dart';
-import 'package:machine_test_app/utilities/widgets/rounded_button.dart';
+import 'package:machine_test_app/utilities/constants.dart';
+import 'package:machine_test_app/utilities/styles.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -14,36 +15,36 @@ class LoginScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Image.asset('images/firebase.png'),
+            Image.asset(firebaseImgPath),
             const SizedBox(
               height: 100,
             ),
-            const RoundedButton(
-              color: Colors.blue,
-              text: 'Google',
-              height: 35,
-              width: 150,
-              path: 'images/google.png',
-            ),
+            Container(
+                decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(30)),
+                child: ListTile(
+                    leading: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: Image.asset(googleImgPath)),
+                    title: const Center(child: Text(googleText,style: whiteText,)))),
             const SizedBox(
               height: 20,
             ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HomeScreen(),
-                    ));
-              },
-              child: const RoundedButton(
-                color: Colors.green,
-                text: 'Phone',
-                height: 35,
-                width: 150,
-                path: 'images/phone.png',
-              ),
-            )
+            Container(
+                decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(30)),
+                child: ListTile(
+                    leading: const Icon(Icons.phone, color: Colors.white),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const HomeScreen(),
+                          ));
+                    },
+                    title: const Center(child: Text(phoneText,style: whiteText,))))
           ],
         ),
       ),
