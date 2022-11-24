@@ -3,7 +3,7 @@ import 'package:machine_test_app/utilities/constants.dart';
 import 'package:machine_test_app/utilities/widgets/checkout_tile.dart';
 
 class CheckoutScreen extends StatefulWidget {
- const CheckoutScreen({Key? key}) : super(key: key);
+  const CheckoutScreen({Key? key}) : super(key: key);
 
   @override
   State<CheckoutScreen> createState() => _CheckoutScreenState();
@@ -25,24 +25,28 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     padding: const EdgeInsets.all(8),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.green[900],
-                        borderRadius: BorderRadius.circular(8)
-                      ),
+                          color: Colors.green[900],
+                          borderRadius: BorderRadius.circular(8)),
                       height: 40,
-                      
                       child: const Center(child: Text('2 Dishes - 2 Items')),
                     ),
                   ),
-                  CheckoutTile(),
-                  CheckoutTile(),
-                  CheckoutTile(),
+                  const CheckoutTile(),
+                  const CheckoutTile(),
+                  const CheckoutTile(),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
-                        Text(totalAmountText,style: TextStyle(fontSize: 20),),
-                        Text('65',style: TextStyle(color: Colors.red,fontSize: 20),),
+                        Text(
+                          totalAmountText,
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Text(
+                          '65',
+                          style: TextStyle(color: Colors.red, fontSize: 20),
+                        ),
                       ],
                     ),
                   )
@@ -52,17 +56,18 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             Column(
               children: [
                 Container(
-                  
                   height: 40,
                   width: 300,
                   decoration: BoxDecoration(
-                         color: Colors.green[900], borderRadius: BorderRadius.circular(25)),
-                  child: const Center(child:  Text('Place Your Order')),
+                      color: Colors.green[900],
+                      borderRadius: BorderRadius.circular(25)),
+                  child: const Center(child: Text('Place Your Order')),
                 ),
-                const SizedBox(height: 10,)
+                const SizedBox(
+                  height: 10,
+                )
               ],
             ),
-            
           ],
         ),
       ),

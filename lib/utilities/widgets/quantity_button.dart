@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:machine_test_app/utilities/colors.dart';
+import 'package:machine_test_app/utilities/styles.dart';
 
 class QuantityButton extends StatelessWidget {
   const QuantityButton({Key? key, required this.color}) : super(key: key);
@@ -16,21 +18,13 @@ class QuantityButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           GestureDetector(
-              onTap: () {},
-              child: const Icon(
-                Icons.remove,
-                color: Colors.white,
-              )),
-          Text(
+              onTap: () {}, child: const Icon(Icons.remove, color: kwhite)),
+          const Text(
             '0',
-            style: const TextStyle(color: Colors.white),
+            style: whiteText,
           ),
           GestureDetector(
-              onTap: () {},
-              child: const Icon(
-                Icons.add,
-                color: Colors.white,
-              ))
+              onTap: () {}, child: const Icon(Icons.add, color: kwhite))
         ],
       ),
     );

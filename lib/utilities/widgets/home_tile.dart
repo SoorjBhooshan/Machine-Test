@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:machine_test_app/utilities/widgets/quantity_button.dart';
 
 class HomeTile extends StatefulWidget {
-  HomeTile({Key? key}) : super(key: key);
+  const HomeTile({Key? key}) : super(key: key);
 
   @override
   State<HomeTile> createState() => _HomeTileState();
