@@ -5,9 +5,16 @@ import 'package:machine_test_app/utilities/styles.dart';
 import 'package:provider/provider.dart';
 
 class QuantityButton extends StatelessWidget {
-  const QuantityButton({Key? key, required this.color}) : super(key: key);
+  QuantityButton(
+      {Key? key,
+      required this.color,
+      required this.number,
+      required this.currentIndex})
+      : super(key: key);
 
   final Color color;
+  int number;
+  int currentIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +29,18 @@ class QuantityButton extends StatelessWidget {
           children: [
             GestureDetector(
                 onTap: () {
-                  foodController.decreaseQuantity();
+                  foodController.decreaseQuantity(currentIndex, number);
                 },
                 child: const Icon(Icons.remove, color: kwhite)),
             Text(
-              foodController.quantity.toString(),
+              foodController.foodModel![0].tableMenuList[currentIndex]
+                  .categoryDishes[number].quantity
+                  .toString(),
               style: whiteText,
             ),
             GestureDetector(
                 onTap: () {
-                  foodController.increaseQuantity();
+                  foodController.increaseQuantity(currentIndex, number);
                 },
                 child: const Icon(Icons.add, color: kwhite))
           ],

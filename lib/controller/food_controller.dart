@@ -7,19 +7,35 @@ class FoodController extends ChangeNotifier {
   List<FoodModel>? foodModel = [];
   List<CategoryDish> categoryDishes = [];
   List<Widget> tableMenuList = [];
-  int? selectedIndex;
   List<ListView> totalList = [];
   List<CategoryDish> cart = [];
-  int quantity = 0;
 
-  void increaseQuantity() {
-    quantity++;
+  int totalQuantity = 0;
+  double totalAmount = 0;
+
+  void clearCartDetails() {
+    totalQuantity = 0;
+    totalAmount = 0;
+    cart = [];
+
     notifyListeners();
   }
 
-  void decreaseQuantity() {
-    if (quantity > 0) {
-      quantity--;
+  void increaseQuantity(int currentIndex, int number) {
+    foodModel![0].tableMenuList[currentIndex].categoryDishes[number].quantity++;
+    notifyListeners();
+  }
+
+  void decreaseQuantity(int currentIndex, int number) {
+    if (foodModel![0]
+            .tableMenuList[currentIndex]
+            .categoryDishes[number]
+            .quantity >
+        0) {
+      foodModel![0]
+          .tableMenuList[currentIndex]
+          .categoryDishes[number]
+          .quantity--;
     }
 
     notifyListeners();
@@ -38,7 +54,7 @@ class FoodController extends ChangeNotifier {
     notifyListeners();
   }
 
-  getProductList() async {
+  getProductList() {
     for (int i = 0; i < foodModel![0].tableMenuList.length; i++) {
       categoryDishes.add(foodModel![0].tableMenuList[0].categoryDishes[i]);
     }
@@ -52,6 +68,25 @@ class FoodController extends ChangeNotifier {
           return HomeTile(currentIndex: i, number: index);
         },
       ));
+    }
+  }
+
+  getCartProducts() {
+    for (int i = 0; i < foodModel![0].tableMenuList.length; i++) {
+      for (int j = 0;
+          j < foodModel![0].tableMenuList[i].categoryDishes.length;
+          j++) {
+        if (foodModel![0].tableMenuList[i].categoryDishes[j].quantity > 0) {
+          cart.add(foodModel![0].tableMenuList[i].categoryDishes[j]);
+
+          totalQuantity +=
+              foodModel![0].tableMenuList[i].categoryDishes[j].quantity;
+
+          totalAmount +=
+              foodModel![0].tableMenuList[i].categoryDishes[j].dishPrice *
+                  foodModel![0].tableMenuList[i].categoryDishes[j].quantity;
+        }
+      }
     }
   }
 }

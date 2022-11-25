@@ -37,16 +37,16 @@ class _HomeTileState extends State<HomeTile> {
                       .foodModel![0]
                       .tableMenuList[widget.currentIndex]
                       .categoryDishes[widget.number]
-                      .dishName),
+                      .dishName,style: const TextStyle(fontSize: 25),),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(foodController
+                      Text("INR ${foodController
                           .foodModel![0]
                           .tableMenuList[widget.currentIndex]
                           .categoryDishes[widget.number]
                           .dishPrice
-                          .toString()),
+                          }"),
                       Text(foodController
                           .foodModel![0]
                           .tableMenuList[widget.currentIndex]
@@ -61,18 +61,21 @@ class _HomeTileState extends State<HomeTile> {
                       .categoryDishes[widget.number]
                       .dishDescription
                       .toString()),
-                  const QuantityButton(color: Colors.green),
+                  QuantityButton(
+                    color: Colors.green,
+                    currentIndex: widget.currentIndex,
+                    number: widget.number,
+                  ),
                   const Text('Customization Available')
                 ],
               ),
-              // trailing: SizedBox(
-              //     height: 100,
-              //     width: 100,
-              //     child: Image.network(foodController
-              //         .foodModel![0]
-              //         .tableMenuList[widget.currentIndex]
-              //         .categoryDishes[widget.number]
-              //         .dishImage)),
+              trailing:  Image.asset('images/mutta.jpg'),
+                // child: Image.network(foodController
+                //     .foodModel![0]
+                //     .tableMenuList[widget.currentIndex]
+                //     .categoryDishes[widget.number]
+                //     .dishImage),
+              
             ),
             const SizedBox(
               width: double.infinity,

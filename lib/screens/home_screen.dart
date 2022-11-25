@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
       Provider.of<FoodController>(context, listen: false).getTableMenuList();
       Provider.of<FoodController>(context, listen: false).getProductList();
       Provider.of<FoodController>(context, listen: false).getTotalList();
+      
     });
   }
 

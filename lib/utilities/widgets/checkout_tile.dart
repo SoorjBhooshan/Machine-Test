@@ -1,10 +1,13 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:machine_test_app/controller/food_controller.dart';
 import 'package:machine_test_app/utilities/colors.dart';
-import 'package:machine_test_app/utilities/widgets/quantity_button.dart';
+import 'package:provider/provider.dart';
 
 class CheckoutTile extends StatefulWidget {
-  const CheckoutTile({Key? key}) : super(key: key);
-
+  CheckoutTile({Key? key, required this.number}) : super(key: key);
+  int number;
   @override
   State<CheckoutTile> createState() => _CheckoutTileState();
 }
@@ -12,44 +15,46 @@ class CheckoutTile extends StatefulWidget {
 class _CheckoutTileState extends State<CheckoutTile> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Column(
-        children: [
-          ListTile(
-            leading: Container(
-                padding: const EdgeInsets.all(3),
-                decoration:
-                    BoxDecoration(border: Border.all(color: kgreenColor)),
-                height: 22,
-                width: 22,
-                child: const CircleAvatar(
-                  radius: 5,
-                  backgroundColor: kgreenColor,
-                )),
-            title: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text('Product Name'),
-                    QuantityButton(color: kgreenColor),
-                  ],
-                ),
-                const Text('INR 20.00'),
-                const Text('112 calories'),
-              ],
+    return Consumer<FoodController>(builder: (context, foodController, child) {
+      return SizedBox(
+        child: Column(
+          children: [
+            ListTile(
+              leading: Container(
+                  padding: const EdgeInsets.all(3),
+                  decoration:
+                      BoxDecoration(border: Border.all(color: kgreenColor)),
+                  height: 22,
+                  width: 22,
+                  child: const CircleAvatar(
+                    radius: 5,
+                    backgroundColor: kgreenColor,
+                  )),
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(child: Text(foodController.cart[widget.number].dishName)),
+                     // QuantityButton(color: kgreenColor),
+                    ],
+                  ),
+                   Text("INR ${foodController.cart[widget.number].dishPrice}"),
+                   Text(foodController.cart[widget.number].dishCalories.toString()),
+                ],
+              ),
+              trailing: Text(foodController.cart[widget.number].dishPrice.toString()),
             ),
-            trailing: const Text('INR 20.00'),
-          ),
-          const SizedBox(
-            width: double.infinity,
-            child: Divider(
-              thickness: 1,
-            ),
-          )
-        ],
-      ),
-    );
+            const SizedBox(
+              width: double.infinity,
+              child: Divider(
+                thickness: 1,
+              ),
+            )
+          ],
+        ),
+      );
+    });
   }
 }

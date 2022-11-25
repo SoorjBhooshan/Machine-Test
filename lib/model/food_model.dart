@@ -137,6 +137,7 @@ class CategoryDish {
   int dishType;
   String nexturl;
   List<AddonCat>? addonCat;
+  int quantity = 0;
 
   factory CategoryDish.fromJson(Map<String, dynamic> json) => CategoryDish(
         dishId: json["dish_id"],
