@@ -33,6 +33,7 @@ class AuthController extends ChangeNotifier {
         accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
 
     await auth.signInWithCredential(credential);
+    getCurrentUserName();
     notifyListeners();
   }
 
@@ -82,6 +83,8 @@ class AuthController extends ChangeNotifier {
           verificationId: verificationID, smsCode: otpController.text.trim()));
       // Navigator.push(context!,
       //     MaterialPageRoute(builder: ((context) => const HomeScreen())));
+
+      getCurrentUserName();
     } catch (e) {
       debugPrint(e.toString());
     }

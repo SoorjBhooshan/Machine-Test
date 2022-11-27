@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:machine_test_app/controller/food_controller.dart';
 import 'package:machine_test_app/utilities/colors.dart';
 import 'package:machine_test_app/utilities/widgets/quantity_button.dart';
+import 'package:machine_test_app/utilities/widgets/quantity_button_cart.dart';
 import 'package:provider/provider.dart';
 
 class CheckoutTile extends StatefulWidget {
@@ -38,10 +39,8 @@ class _CheckoutTileState extends State<CheckoutTile> {
                       Expanded(
                           child: Text(
                               foodController.cart[widget.number].dishName)),
-                      QuantityButton(
-                          color: kgreenColor,
-                          currentIndex: 0,
-                          number: widget.number),
+                      QuantityButtonCart(
+                          color: kgreenColor, number: widget.number),
                     ],
                   ),
                   Text("INR ${foodController.cart[widget.number].dishPrice}"),

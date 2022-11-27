@@ -26,8 +26,6 @@ class FoodController extends ChangeNotifier {
     totalQuantity = 0;
     totalAmount = 0;
     cart = [];
-
-    //notifyListeners();
   }
 
   void increaseQuantity(int currentIndex, int number) {
@@ -53,7 +51,7 @@ class FoodController extends ChangeNotifier {
   }
 
   void increaseQuantityCart(int number) {
-    cart[number].quantity++;
+    // cart[number].quantity++;
 
     for (int i = 0; i < foodModel![0].tableMenuList.length; i++) {
       for (int j = 0;
@@ -70,19 +68,27 @@ class FoodController extends ChangeNotifier {
   }
 
   void decreaseQuantityCart(int number) {
-    if (cart[number].quantity > 0) {
-      cart[number].quantity--;
+    if (cart.isNotEmpty) {
+      print("line 72 ${cart[number].dishName}");
+      if (cart[number].quantity > 1) {
+        for (int i = 0; i < foodModel![0].tableMenuList.length; i++) {
+          for (int j = 0;
+              j < foodModel![0].tableMenuList[i].categoryDishes.length;
+              j++) {
 
-      for (int i = 0; i < foodModel![0].tableMenuList.length; i++) {
-        for (int j = 0;
-            j < foodModel![0].tableMenuList[i].categoryDishes.length;
-            j++) {
-          if (foodModel![0].tableMenuList[i].categoryDishes[j].dishId ==
-              cart[number].dishId) {
-            decreaseQuantity(i, j);
+                 print("line 79 ${cart[number].dishName}");
+            if (foodModel![0].tableMenuList[i].categoryDishes[j].dishId ==
+                cart[number].dishId) {
+              decreaseQuantity(i, j);
+            }
           }
         }
+      } else {
+         print("line 87 ${cart[number].dishName}");
+        cart.removeAt(number);
       }
+    } else {
+      return;
     }
 
     notifyListeners();
@@ -95,7 +101,7 @@ class FoodController extends ChangeNotifier {
 
   void getTabMenuList() {
     tabMenuList = [];
-    print('Inside Get Table Menu');
+
     for (int i = 0; i < foodModel![0].tableMenuList.length; i++) {
       tabMenuList.add(Tab(text: foodModel![0].tableMenuList[i].menuCategory));
     }
