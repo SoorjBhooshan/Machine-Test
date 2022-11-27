@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:machine_test_app/controller/auth_controller.dart';
 import 'package:machine_test_app/controller/food_controller.dart';
@@ -21,17 +20,17 @@ class _HomeScreenState extends State<HomeScreen> {
     Provider.of<FoodController>(context, listen: false)
         .getFoodModel()
         .then((value) {
-      Provider.of<FoodController>(context, listen: false).getTableMenuList();
+      Provider.of<FoodController>(context, listen: false).clearAllLists();
+      Provider.of<FoodController>(context, listen: false).getTabMenuList();
       Provider.of<FoodController>(context, listen: false).getProductList();
       Provider.of<FoodController>(context, listen: false).getTotalList();
-      
     });
   }
 
   @override
   Widget build(BuildContext context) {
     if (Provider.of<FoodController>(context, listen: true)
-            .tableMenuList
+            .tabMenuList
             .isEmpty &&
         Provider.of<FoodController>(context, listen: true)
             .categoryDishes
@@ -39,12 +38,17 @@ class _HomeScreenState extends State<HomeScreen> {
       return const Center(child: CircularProgressIndicator());
     } else {
       return DefaultTabController(
-        length: Provider.of<FoodController>(context).tableMenuList.length,
+        length: Provider.of<FoodController>(context).tabMenuList.length,
         child: Scaffold(
           appBar: AppBar(
             title: const Text('Home'),
             bottom: TabBar(
-                tabs: Provider.of<FoodController>(context).tableMenuList),
+                isScrollable: true,
+                labelPadding: const EdgeInsets.symmetric(horizontal: 15.0),
+                indicatorColor: Colors.green,
+                labelStyle: const TextStyle(fontSize: 20.0),
+                unselectedLabelStyle: const TextStyle(fontSize: 10.0),
+                tabs: Provider.of<FoodController>(context).tabMenuList),
             actions: [
               IconButton(
                   onPressed: () {
@@ -71,27 +75,21 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Image.asset('images/firebase.png'),
                         ),
                         Text(
-                          FirebaseAuth.instance.currentUser?.displayName == null
-                              ? ''
-                              : FirebaseAuth.instance.currentUser!.displayName
-                                  .toString(),
+                          authController.userName,
                           style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w500),
                         ),
                         Text(
-                          FirebaseAuth.instance.currentUser == null
-                              ? ''
-                              : FirebaseAuth.instance.currentUser!.phoneNumber
-                                  .toString(),
+                          authController.phone,
                           style: const TextStyle(
                               fontSize: 10, fontWeight: FontWeight.w300),
                         ),
                         const SizedBox(
                           height: 10,
                         ),
-                        const Text(
-                          'ID',
-                          style: TextStyle(
+                        Text(
+                          authController.id,
+                          style: const TextStyle(
                               fontSize: 10, fontWeight: FontWeight.w100),
                         ),
                       ],

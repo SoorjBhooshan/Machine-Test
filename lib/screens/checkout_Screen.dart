@@ -85,7 +85,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               ),
                               Text(
                                 Provider.of<FoodController>(context,
-                                        listen: false)
+                                        listen: true)
                                     .totalAmount
                                     .toString(),
                                 style: const TextStyle(

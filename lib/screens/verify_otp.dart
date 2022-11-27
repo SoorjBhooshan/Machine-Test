@@ -36,8 +36,8 @@ class _VerifyOTPState extends State<VerifyOTP> {
                 height: 20,
               ),
               GestureDetector(
-                onTap: () {
-                  authController.confirmUser(context: context);
+                onTap: () async {
+                  await authController.confirmUser(context: context);
                 },
                 child: Container(
                   height: 40,

@@ -12,15 +12,22 @@ class UserCheckScreen extends StatelessWidget {
       body: StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: ((context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (snapshot.hasData) {
+            // if (snapshot.connectionState == ConnectionState.waiting) {
+            //   return const Center(
+            //     child: CircularProgressIndicator(),
+            //   );
+            // } else
+            if (snapshot.hasData) {
+              print('auth state home');
+
               return const HomeScreen();
-            } else if(snapshot.hasError){
-              return const Center(child: Text('Some error Occured'),);
-            }else {
+            }
+            // else if (snapshot.hasError) {
+            //   return const Center(
+            //     child: Text('Some error Occured'),
+            //   );
+            // }
+            else {
               return const LoginScreen();
             }
           })),

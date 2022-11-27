@@ -6,23 +6,33 @@ import 'package:machine_test_app/utilities/widgets/home_tile.dart';
 class FoodController extends ChangeNotifier {
   List<FoodModel>? foodModel = [];
   List<CategoryDish> categoryDishes = [];
-  List<Widget> tableMenuList = [];
+  List<Widget> tabMenuList = [];
   List<ListView> totalList = [];
   List<CategoryDish> cart = [];
 
   int totalQuantity = 0;
   double totalAmount = 0;
 
-  void clearCartDetails() {
-    totalQuantity = 0;
-    totalAmount = 0;
+  void clearAllLists() {
+    categoryDishes = [];
+    tabMenuList = [];
+    totalList = [];
     cart = [];
 
     notifyListeners();
   }
 
+  void clearCartDetails() {
+    totalQuantity = 0;
+    totalAmount = 0;
+    cart = [];
+
+    //notifyListeners();
+  }
+
   void increaseQuantity(int currentIndex, int number) {
     foodModel![0].tableMenuList[currentIndex].categoryDishes[number].quantity++;
+    getCartProducts();
     notifyListeners();
   }
 
@@ -36,6 +46,43 @@ class FoodController extends ChangeNotifier {
           .tableMenuList[currentIndex]
           .categoryDishes[number]
           .quantity--;
+      getCartProducts();
+    }
+
+    notifyListeners();
+  }
+
+  void increaseQuantityCart(int number) {
+    cart[number].quantity++;
+
+    for (int i = 0; i < foodModel![0].tableMenuList.length; i++) {
+      for (int j = 0;
+          j < foodModel![0].tableMenuList[i].categoryDishes.length;
+          j++) {
+        if (foodModel![0].tableMenuList[i].categoryDishes[j].dishId ==
+            cart[number].dishId) {
+          increaseQuantity(i, j);
+        }
+      }
+    }
+
+    notifyListeners();
+  }
+
+  void decreaseQuantityCart(int number) {
+    if (cart[number].quantity > 0) {
+      cart[number].quantity--;
+
+      for (int i = 0; i < foodModel![0].tableMenuList.length; i++) {
+        for (int j = 0;
+            j < foodModel![0].tableMenuList[i].categoryDishes.length;
+            j++) {
+          if (foodModel![0].tableMenuList[i].categoryDishes[j].dishId ==
+              cart[number].dishId) {
+            decreaseQuantity(i, j);
+          }
+        }
+      }
     }
 
     notifyListeners();
@@ -46,9 +93,11 @@ class FoodController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getTableMenuList() {
+  void getTabMenuList() {
+    tabMenuList = [];
+    print('Inside Get Table Menu');
     for (int i = 0; i < foodModel![0].tableMenuList.length; i++) {
-      tableMenuList.add(Tab(text: foodModel![0].tableMenuList[i].menuCategory));
+      tabMenuList.add(Tab(text: foodModel![0].tableMenuList[i].menuCategory));
     }
 
     notifyListeners();
@@ -72,6 +121,8 @@ class FoodController extends ChangeNotifier {
   }
 
   getCartProducts() {
+    clearCartDetails();
+
     for (int i = 0; i < foodModel![0].tableMenuList.length; i++) {
       for (int j = 0;
           j < foodModel![0].tableMenuList[i].categoryDishes.length;

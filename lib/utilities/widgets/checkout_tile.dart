@@ -1,8 +1,7 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:machine_test_app/controller/food_controller.dart';
 import 'package:machine_test_app/utilities/colors.dart';
+import 'package:machine_test_app/utilities/widgets/quantity_button.dart';
 import 'package:provider/provider.dart';
 
 class CheckoutTile extends StatefulWidget {
@@ -36,15 +35,22 @@ class _CheckoutTileState extends State<CheckoutTile> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(child: Text(foodController.cart[widget.number].dishName)),
-                     // QuantityButton(color: kgreenColor),
+                      Expanded(
+                          child: Text(
+                              foodController.cart[widget.number].dishName)),
+                      QuantityButton(
+                          color: kgreenColor,
+                          currentIndex: 0,
+                          number: widget.number),
                     ],
                   ),
-                   Text("INR ${foodController.cart[widget.number].dishPrice}"),
-                   Text(foodController.cart[widget.number].dishCalories.toString()),
+                  Text("INR ${foodController.cart[widget.number].dishPrice}"),
+                  Text(foodController.cart[widget.number].dishCalories
+                      .toString()),
                 ],
               ),
-              trailing: Text(foodController.cart[widget.number].dishPrice.toString()),
+              trailing:
+                  Text(foodController.cart[widget.number].dishPrice.toString()),
             ),
             const SizedBox(
               width: double.infinity,
