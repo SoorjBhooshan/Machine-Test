@@ -29,14 +29,16 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   @override
   Widget build(BuildContext context) {
     if (Provider.of<FoodController>(context, listen: true).cart.isEmpty) {
+      Provider.of<FoodController>(context, listen: false).setQuantitytoZero();
+
       return const Scaffold(
-        body: Center(child: Text('No records')),
+        body: Center(child: Text(emptyCartText)),
       );
     } else {
       return Consumer<FoodController>(
           builder: (context, foodController, child) {
         return Scaffold(
-          appBar: AppBar(title: const Text('Order Summary')),
+          appBar: AppBar(title: const Text(orderSummaryText)),
           backgroundColor: Colors.grey[100],
           body: SafeArea(
             child: Column(
@@ -54,7 +56,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               child: Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: Text(
-                              '${foodController.cart.length} Dishes - ${foodController.totalQuantity} Items',
+                              '${foodController.cart.length} $dishesText - ${foodController.totalQuantity} $itemsText',
                               style: const TextStyle(fontSize: 20),
                             ),
                           )),
@@ -108,7 +110,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       child: GestureDetector(
                         onTap: () {
                           Fluttertoast.showToast(
-                              msg: "Order Successfully Placed",
+                              msg: orderPlaceMsg,
                               toastLength: Toast.LENGTH_LONG,
                               gravity: ToastGravity.CENTER,
                               timeInSecForIosWeb: 1,
@@ -130,7 +132,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               borderRadius: BorderRadius.circular(25)),
                           child: const Center(
                               child: Text(
-                            'Place Your Order',
+                            placeOrderButtonText,
                             style: TextStyle(fontSize: 18, color: Colors.white),
                           )),
                         ),

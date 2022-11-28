@@ -24,10 +24,12 @@ class _VerifyOTPState extends State<VerifyOTP> {
             children: [
               TextField(
                 controller: authController.otpController,
+                keyboardType: TextInputType.phone,
+                maxLength: 6,
                 decoration: InputDecoration(
                     fillColor: kgreenColor,
                     filled: true,
-                    hintText: 'Enter OTP',
+                    hintText: enterOtpText,
                     hintStyle: whiteText,
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12))),

@@ -29,7 +29,7 @@ class LoginScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(30)),
                     child: ListTile(
                       onTap: () {
-                        authController.googleLogin();
+                        authController.googleLogin(context: context);
                       },
                         leading: CircleAvatar(
                             backgroundColor: Colors.white,

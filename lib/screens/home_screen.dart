@@ -16,6 +16,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) =>
+        Provider.of<AuthController>(context, listen: false)
+            .getCurrentUserDetails());
 
     Provider.of<FoodController>(context, listen: false)
         .getFoodModel()
@@ -41,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
         length: Provider.of<FoodController>(context).tabMenuList.length,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('Home'),
+            title: const Text(homeText),
             bottom: TabBar(
                 isScrollable: true,
                 labelPadding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -75,12 +78,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Image.asset('images/firebase.png'),
                         ),
                         Text(
-                          authController.userName,
+                          authController.userName == 'null' || authController.userName == ''
+                              ? usernameText
+                              : authController.userName,
                           style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w500),
                         ),
                         Text(
-                          authController.phone,
+                          authController.phone == 'null' || authController.phone == ''
+                              ? phoneNumberLabel
+                              : authController.phone,
                           style: const TextStyle(
                               fontSize: 10, fontWeight: FontWeight.w300),
                         ),
@@ -88,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 10,
                         ),
                         Text(
-                          authController.id,
+                          "$id = ${authController.id}",
                           style: const TextStyle(
                               fontSize: 10, fontWeight: FontWeight.w100),
                         ),

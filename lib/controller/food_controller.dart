@@ -13,6 +13,9 @@ class FoodController extends ChangeNotifier {
   int totalQuantity = 0;
   double totalAmount = 0;
 
+  int currentIndex = 0;
+  int num = 0;
+
   void clearAllLists() {
     categoryDishes = [];
     tabMenuList = [];
@@ -51,8 +54,6 @@ class FoodController extends ChangeNotifier {
   }
 
   void increaseQuantityCart(int number) {
-    // cart[number].quantity++;
-
     for (int i = 0; i < foodModel![0].tableMenuList.length; i++) {
       for (int j = 0;
           j < foodModel![0].tableMenuList[i].categoryDishes.length;
@@ -69,23 +70,25 @@ class FoodController extends ChangeNotifier {
 
   void decreaseQuantityCart(int number) {
     if (cart.isNotEmpty) {
-      print("line 72 ${cart[number].dishName}");
       if (cart[number].quantity > 1) {
         for (int i = 0; i < foodModel![0].tableMenuList.length; i++) {
           for (int j = 0;
               j < foodModel![0].tableMenuList[i].categoryDishes.length;
               j++) {
-
-                 print("line 79 ${cart[number].dishName}");
             if (foodModel![0].tableMenuList[i].categoryDishes[j].dishId ==
                 cart[number].dishId) {
               decreaseQuantity(i, j);
+              if (cart[number].quantity == 1) {
+                currentIndex = i;
+                num = j;
+              }
             }
           }
         }
       } else {
-         print("line 87 ${cart[number].dishName}");
         cart.removeAt(number);
+
+        decreaseQuantity(currentIndex, num);
       }
     } else {
       return;
@@ -124,6 +127,17 @@ class FoodController extends ChangeNotifier {
         },
       ));
     }
+  }
+
+  setQuantitytoZero() {
+    for (int i = 0; i < foodModel![0].tableMenuList.length; i++) {
+      for (int j = 0;
+          j < foodModel![0].tableMenuList[i].categoryDishes.length;
+          j++) {
+        foodModel![0].tableMenuList[i].categoryDishes[j].quantity = 0;
+      }
+    }
+    
   }
 
   getCartProducts() {

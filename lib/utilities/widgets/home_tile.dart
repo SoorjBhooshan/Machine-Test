@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:machine_test_app/controller/food_controller.dart';
+import 'package:machine_test_app/utilities/colors.dart';
+import 'package:machine_test_app/utilities/constants.dart';
 import 'package:machine_test_app/utilities/widgets/quantity_button.dart';
 import 'package:provider/provider.dart';
 
@@ -22,31 +24,46 @@ class _HomeTileState extends State<HomeTile> {
             ListTile(
               leading: Container(
                   padding: const EdgeInsets.all(3),
-                  decoration:
-                      BoxDecoration(border: Border.all(color: Colors.green)),
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                          color: foodController
+                                  .foodModel![0]
+                                  .tableMenuList[widget.currentIndex]
+                                  .categoryDishes[widget.number]
+                                  .dishAvailability
+                              ? Colors.green
+                              : Colors.red)),
                   height: 22,
                   width: 22,
-                  child: const CircleAvatar(
+                  child: CircleAvatar(
                     radius: 5,
-                    backgroundColor: Colors.green,
+                    backgroundColor: foodController
+                            .foodModel![0]
+                            .tableMenuList[widget.currentIndex]
+                            .categoryDishes[widget.number]
+                            .dishAvailability
+                        ? Colors.green
+                        : Colors.red,
                   )),
               title: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(foodController
-                      .foodModel![0]
-                      .tableMenuList[widget.currentIndex]
-                      .categoryDishes[widget.number]
-                      .dishName,style: const TextStyle(fontSize: 25),),
+                  Text(
+                    foodController
+                        .foodModel![0]
+                        .tableMenuList[widget.currentIndex]
+                        .categoryDishes[widget.number]
+                        .dishName,
+                    style: const TextStyle(fontSize: 25),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("INR ${foodController
-                          .foodModel![0]
-                          .tableMenuList[widget.currentIndex]
-                          .categoryDishes[widget.number]
-                          .dishPrice
-                          }"),
+                      Text(
+                          "INR ${foodController.foodModel![0].tableMenuList[widget.currentIndex].categoryDishes[widget.number].dishPrice}"),
                       Text(foodController
                           .foodModel![0]
                           .tableMenuList[widget.currentIndex]
@@ -55,27 +72,42 @@ class _HomeTileState extends State<HomeTile> {
                           .toString())
                     ],
                   ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Text(foodController
                       .foodModel![0]
                       .tableMenuList[widget.currentIndex]
                       .categoryDishes[widget.number]
                       .dishDescription
-                      .toString()),
+                      .toString(),style: const TextStyle(color:kgrey),),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   QuantityButton(
-                    color: Colors.green,
+                    color: kgreenColor,
                     currentIndex: widget.currentIndex,
                     number: widget.number,
                   ),
-                  const Text('Customization Available')
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(foodController
+                          .foodModel![0]
+                          .tableMenuList[widget.currentIndex]
+                          .categoryDishes[widget.number]
+                          .addonCat!
+                          .isNotEmpty
+                      ? customizationAvailableText
+                      : '')
                 ],
               ),
-              trailing:  Image.asset('images/mutta.jpg'),
-                // child: Image.network(foodController
-                //     .foodModel![0]
-                //     .tableMenuList[widget.currentIndex]
-                //     .categoryDishes[widget.number]
-                //     .dishImage),
-              
+              trailing: Image.asset('images/mutta.jpg'),
+              // child: Image.network(foodController
+              //     .foodModel![0]
+              //     .tableMenuList[widget.currentIndex]
+              //     .categoryDishes[widget.number]
+              //     .dishImage),
             ),
             const SizedBox(
               width: double.infinity,
