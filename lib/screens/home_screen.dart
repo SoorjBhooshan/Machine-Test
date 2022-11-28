@@ -70,12 +70,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   DrawerHeader(
                     decoration:
-                        const BoxDecoration(color: Colors.lightBlueAccent),
+                        const BoxDecoration(color: Colors.lightGreen,borderRadius: BorderRadius.only(bottomLeft: Radius.circular(12),bottomRight: Radius.circular(12))),
                     child: Column(
                       children: [
-                        CircleAvatar(
+                        const CircleAvatar(
                           radius: 40,
-                          child: Image.asset('images/firebase.png'),
+                          child: Icon(Icons.person),
                         ),
                         Text(
                           authController.userName == 'null' || authController.userName == ''
